@@ -11,6 +11,8 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from Youtube.config import Config
 from Youtube.forcesub import handle_force_subscribe
 
+logging.basicConfig(level=logging.INFO)
+
 youtube_dl_username = None  
 youtube_dl_password = None 
 
@@ -66,7 +68,10 @@ async def handle_download_button(client, callback_query):
             'format': quality_format,
             'outtmpl': 'downloaded_video_%(id)s.%(ext)s',
             'progress_hooks': [lambda d: print(d['status'])],
-            'cookiefile': 'cookies.txt'
+            'cookiefile': 'cookies.txt',
+            'postprocessors': [{'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'}],  # Convert to MP4
+            'logger': logging.getLogger(),  # Enable logging
+            'verbose': True  # Enable detailed logging
         }
 
         if Config.HTTP_PROXY:
@@ -81,15 +86,27 @@ async def handle_download_button(client, callback_query):
             title = info_dict.get('title', 'YouTube Video')
 
             ydl.download([youtube_link])
-            uploading_msg = await callback_query.message.reply_text("📤 **Uploading Video...**")
-            video_filename = f"downloaded_video_{info_dict['id']}.mp4"
 
-            await client.send_video(callback_query.message.chat.id, video=open(video_filename, 'rb'), caption=f"🎬 **{title}**")
+        # Ensure file exists before uploading
+        video_filename = None
+        for ext in ["mp4", "mkv", "webm", "3gp"]:
+            possible_filename = f"downloaded_video_{info_dict['id']}.{ext}"
+            if os.path.exists(possible_filename):
+                video_filename = possible_filename
+                break
 
-            await downloading_msg.delete()
-            await uploading_msg.delete()
+        if video_filename is None:
+            await callback_query.message.reply_text("❌ **Error: Download failed. Please try again.**")
+            return
 
-            await callback_query.message.reply_text("✅ **Successfully Uploaded!**")
+        uploading_msg = await callback_query.message.reply_text("📤 **Uploading Video...**")
+
+        await client.send_video(callback_query.message.chat.id, video=open(video_filename, 'rb'), caption=f"🎬 **{title}**")
+
+        await downloading_msg.delete()
+        await uploading_msg.delete()
+
+        await callback_query.message.reply_text("✅ **Successfully Uploaded!**")
 
     except Exception as e:
         logging.exception("Error processing YouTube link: %s", e)
