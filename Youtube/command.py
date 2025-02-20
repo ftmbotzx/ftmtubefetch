@@ -93,8 +93,6 @@ async def help(client, message):
 💡 For support, contact Fᴛᴍ Dᴇᴠᴇʟᴏᴘᴇʀᴢ (@ftmdeveloperz).
 
 ©️ Channel: @ftmbotzx
-
-
     """
     await message.reply_text(help_text)
 
