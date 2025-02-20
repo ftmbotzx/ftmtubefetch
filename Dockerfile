@@ -17,8 +17,8 @@ COPY . .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Expose the required port
+# Expose Railway's default port
 EXPOSE 8080
 
-# Start both Gunicorn and the bot
-CMD gunicorn app:app --bind 0.0.0.0:8080 & python3 bot.py
+# Start Gunicorn and the bot together
+CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:8080 & python3 bot.py"]
