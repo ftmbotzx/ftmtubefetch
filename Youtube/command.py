@@ -61,11 +61,11 @@ async def start(client, message):
         reply_markup=InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton('📍 Update Channel', url='https://t.me/NT_BOT_CHANNEL'),
+                InlineKeyboardButton('📍 Update Channel', url='https://t.me/ftmbotzx'),
             ],
             [
-                InlineKeyboardButton('👩‍💻 Developer', url='https://t.me/LISA_FAN_LK'),
-                InlineKeyboardButton('👥 Support Group', url='https://t.me/NT_BOTS_SUPPORT'),
+                InlineKeyboardButton('👩‍💻 Developer', url='https://t.me/ftmdeveloperz'),
+                InlineKeyboardButton('👥 Support Group', url='https://t.me/ftmbotzx_support'),
             ],
             [
                 InlineKeyboardButton('⛔️ Close', callback_data='cancel')
@@ -77,13 +77,24 @@ async def start(client, message):
 @Client.on_message(filters.command("help"))
 async def help(client, message):
     help_text = """
-Welcome to the YouTube Video Uploader Bot!
+🚀 Welcome to the YouTube Video Uploader Bot! 🎥
 
-To upload a YouTube video, simply send me the YouTube link.
+📌 How to Use:
+1️⃣ Send me the YouTube link of the video you want to upload.
+2️⃣ I will process your request and upload the video.
+3️⃣ Once completed, you’ll receive the uploaded video.
 
-Enjoy using the bot!
+⚙️ Features:
+✅ Fast & efficient uploads
+🎞️ Supports multiple video resolutions
+📊 Automatic progress updates
+🔒 Secure & user-friendly
 
-©️ Channel : @NT_BOT_CHANNEL
+💡 For support, contact Fᴛᴍ Dᴇᴠᴇʟᴏᴘᴇʀᴢ (@ftmdeveloperz).
+
+©️ Channel: @ftmbotzx
+
+
     """
     await message.reply_text(help_text)
 
