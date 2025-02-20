@@ -36,10 +36,8 @@ keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("Medium Quality", callback_data=f"download|medium|{youtube_link}")],
     [InlineKeyboardButton("Low Quality", callback_data=f"download|low|{youtube_link}")],
     [InlineKeyboardButton("Audio Only (64Kbps)", callback_data=f"download|audio_64kbps|{youtube_link}")]
-])
-    
+]) 
     await message.reply_text("**Getting Available Formats**", reply_markup=keyboard)
-
 @Client.on_callback_query(filters.regex(r'^download\|'))
 async def handle_download_button(client, callback_query):
     quality, youtube_link = callback_query.data.split('|')[1:]
