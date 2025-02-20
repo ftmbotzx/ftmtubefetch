@@ -18,7 +18,7 @@ async def handle_force_subscribe(bot, message):
         if user.status == "kicked":
             await bot.send_message(
                 chat_id=message.from_user.id,
-                text="Sorry Sir, You are Banned. Contact My [Support Group](https://t.me/NT_BOTS_SUPPORT).",
+                text="Sorry Sir, You are Banned. Contact Our [Support Group](https://t.me/ftmbotzx_support).",
                 disable_web_page_preview=True,
             )
             return 400
