@@ -1,15 +1,19 @@
 class Translation(object):
 
-    START_TEXT = '**Hello,** **{0}**  **{1}**\n\n**Send me the YouTube link of the video you want to upload**' 
+    START_TEXT = """**ʜᴇʏ** **{0}, {1}** 👋  
+
+**ɪ ᴀᴍ ᴠᴇʀʏ ᴀɴᴅ ᴍᴏsᴛ ᴘᴏᴡᴇʀꜰᴜʟ** 🎥 **YᴏᴜTᴜʙᴇ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ʙᴏᴛ** **ɴᴀᴍᴇᴅ ᴀs** ⚡ **ғᴛᴍ ᴛᴜʙᴇғᴇᴛᴄʜ** **ᴛɪʟʟ ɴᴏᴡ ᴄʀᴇᴀᴛᴇᴅ ʙʏ** [**Fᴛᴍ Dᴇᴠᴇʟᴏᴘᴇʀᴢ**](https://t.me/ftmdeveloperz) 🚀  
+
+🌿 **ᴍᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ :** [**Fᴛᴍ Dᴇᴠᴇʟᴏᴘᴇʀᴢ**](https://t.me/ftmdeveloperz)"""
 
     ABOUT_TXT = """
 ╭───────────⍟
-├📛 **My Name** : [YouTube Video Uploader Bot](https://t.me/YouTubeUploaderOneBot)
-├📢 **Framework** : [PyroFork 2.3.50](https://docs.pyrogram.org/)
+├📛 **My Name** : [ғᴛᴍ ᴛᴜʙᴇғᴇᴛᴄʜ](https://t.me/YouTubeUploaderOneBot)
+├📢 **Framework** : [Pyrogram 2.0.106](https://docs.pyrogram.org/)
 ├💮 **Language** : [Python 3.12.6](https://www.python.org)
-├👥 **Support Group** : [NT BOTS SUPPORT](https://t.me/NT_BOTS_SUPPORT)
-├🥏 **Channel** : [NT BOT CHANNEL](https://t.me/NT_BOT_CHANNEL)
-├⛲ **Source** : [Click Here](https://github.com/LISA-KOREA/YouTube-Video-Download-Bot)
-├🎓 **Developer** : [LISA 👑](https://t.me/LISA_FAN_LK)
+├👥 **Support Group** : [Fᴛᴍ Bᴏᴛᴢx Sᴜᴘᴘᴏʀᴛ](https://t.me/ftmdeveloperz)
+├🥏 **Channel** : [Fᴛᴍ Bᴏᴛᴢx](https://t.me/ftmbotzx)
+├⛲ **Source** : [Private Repository](https://t.me/ftmdeveloperz)
+├🎓 **Developer** : [Fᴛᴍ Dᴇᴠᴇʟᴏᴘᴇʀᴢ](https://t.me/ftmdeveloperz)
 ╰───────────────⍟
 """
