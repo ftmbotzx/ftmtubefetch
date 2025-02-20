@@ -1,7 +1,3 @@
-# ©️ LISA-KOREA | @LISA_FAN_LK | NT_BOT_CHANNEL | LISA-KOREA/YouTube-Video-Download-Bot
-
-# [⚠️ Do not change this repo link ⚠️] :- https://github.com/LISA-KOREA/YouTube-Video-Download-Bot
-
 
 
 from pyrogram import Client, filters
@@ -19,5 +15,5 @@ app = Client(
 
 
 # Start the bot
-print("🎊 I AM ALIVE 🎊")
+print("🎊 🎊 I AM ALIVE 🎊 & Powered by Fᴛᴍ Dᴇᴠᴇʟᴏᴘᴇʀᴢ 🚀")
 app.run()
