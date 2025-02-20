@@ -1,6 +1,6 @@
-# ©️ LISA-KOREA | @LISA_FAN_LK | NT_BOT_CHANNEL | LISA-KOREA/YouTube-Video-Download-Bot
+# ©️ Fᴛᴍ Dᴇᴠᴇʟᴏᴘᴇʀᴢ | @ftmdeveloperz | @ftmbotzx | ғᴛᴍ ᴛᴜʙᴇғᴇᴛᴄʜ
 
-# [⚠️ Do not change this repo link ⚠️] :- https://github.com/LISA-KOREA/YouTube-Video-Download-Bot
+# [⚠️ Do not remove credits ⚠️] :- https://t.me/ftmdeveloperz
 
 import os
 import logging
@@ -23,31 +23,44 @@ async def process_youtube_link(client, message):
     youtube_link = message.text
     
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("Best Quality", callback_data=f"download|best|{youtube_link}")],
-        [InlineKeyboardButton("1080p", callback_data=f"download|1080p|{youtube_link}")],
-        [InlineKeyboardButton("2K", callback_data=f"download|2k|{youtube_link}")],
-        [InlineKeyboardButton("4K", callback_data=f"download|4k|{youtube_link}")],
-        [InlineKeyboardButton("Medium Quality", callback_data=f"download|medium|{youtube_link}")],
-        [InlineKeyboardButton("Low Quality", callback_data=f"download|low|{youtube_link}")]
+        [InlineKeyboardButton("🎥 Best Video", callback_data=f"download|best_video|{youtube_link}")],
+        [InlineKeyboardButton("🎶 Best Audio", callback_data=f"download|best_audio|{youtube_link}")],
+        [InlineKeyboardButton("🔹 144p", callback_data=f"download|144p|{youtube_link}"), InlineKeyboardButton("🔹 240p", callback_data=f"download|240p|{youtube_link}")],
+        [InlineKeyboardButton("🔹 360p", callback_data=f"download|360p|{youtube_link}"), InlineKeyboardButton("🔹 480p", callback_data=f"download|480p|{youtube_link}")],
+        [InlineKeyboardButton("🔹 540p", callback_data=f"download|540p|{youtube_link}"), InlineKeyboardButton("🔹 720p", callback_data=f"download|720p|{youtube_link}")],
+        [InlineKeyboardButton("🔸 1080p", callback_data=f"download|1080p|{youtube_link}"), InlineKeyboardButton("🔸 2K", callback_data=f"download|2k|{youtube_link}")],
+        [InlineKeyboardButton("🔺 4K", callback_data=f"download|4k|{youtube_link}"), InlineKeyboardButton("📂 3GP", callback_data=f"download|3gp|{youtube_link}")],
+        [InlineKeyboardButton("🎵 32kbps", callback_data=f"download|32kbps|{youtube_link}"), InlineKeyboardButton("🎵 64kbps", callback_data=f"download|64kbps|{youtube_link}")],
+        [InlineKeyboardButton("🎵 128kbps", callback_data=f"download|128kbps|{youtube_link}"), InlineKeyboardButton("🎵 192kbps", callback_data=f"download|192kbps|{youtube_link}")]
     ])
     
-    await message.reply_text("**Getting Available Formats**", reply_markup=keyboard)
+    await message.reply_text("🔍 **Select a Format to Download**", reply_markup=keyboard)
 
 @Client.on_callback_query(filters.regex(r'^download\|'))
 async def handle_download_button(client, callback_query):
     quality, youtube_link = callback_query.data.split('|')[1:]
     
     quality_format = {
-        'best': 'best',
+        'best_video': 'bestvideo+bestaudio/best',
+        'best_audio': 'bestaudio/best',
+        '144p': 'bestvideo[height<=144]+bestaudio/best[height<=144]',
+        '240p': 'bestvideo[height<=240]+bestaudio/best[height<=240]',
+        '360p': 'bestvideo[height<=360]+bestaudio/best[height<=360]',
+        '480p': 'bestvideo[height<=480]+bestaudio/best[height<=480]',
+        '540p': 'bestvideo[height<=540]+bestaudio/best[height<=540]',
+        '720p': 'bestvideo[height<=720]+bestaudio/best[height<=720]',
         '1080p': 'bestvideo[height<=1080]+bestaudio/best[height<=1080]',
         '2k': 'bestvideo[height<=1440]+bestaudio/best[height<=1440]',
         '4k': 'bestvideo[height<=2160]+bestaudio/best[height<=2160]',
-        'medium': 'best[height<=480]',
-        'low': 'best[height<=360]'
+        '3gp': '3gp',
+        '32kbps': 'bestaudio[abr<=32]',
+        '64kbps': 'bestaudio[abr<=64]',
+        '128kbps': 'bestaudio[abr<=128]',
+        '192kbps': 'bestaudio[abr<=192]'
     }.get(quality, 'best')
 
     try:
-        downloading_msg = await callback_query.message.reply_text("Downloading video...")
+        downloading_msg = await callback_query.message.reply_text("📥 **Downloading Video...**")
 
         ydl_opts = {
             'format': quality_format,
@@ -56,31 +69,28 @@ async def handle_download_button(client, callback_query):
             'cookiefile': 'cookies.txt'
         }
 
-        if Config.HTTP_PROXY != "":
+        if Config.HTTP_PROXY:
             ydl_opts['proxy'] = Config.HTTP_PROXY
-        if youtube_dl_username is not None:
+        if youtube_dl_username:
             ydl_opts['username'] = youtube_dl_username
-        if youtube_dl_password is not None:
+        if youtube_dl_password:
             ydl_opts['password'] = youtube_dl_password
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(youtube_link, download=False)
-            title = info_dict.get('title', None)
+            title = info_dict.get('title', 'YouTube Video')
 
-            if title:
-                ydl.download([youtube_link])
-                uploading_msg = await callback_query.message.reply_text("Uploading video...")
-                video_filename = f"downloaded_video_{info_dict['id']}.mp4"
-                sent_message = await client.send_video(callback_query.message.chat.id, video=open(video_filename, 'rb'), caption=title)
+            ydl.download([youtube_link])
+            uploading_msg = await callback_query.message.reply_text("📤 **Uploading Video...**")
+            video_filename = f"downloaded_video_{info_dict['id']}.mp4"
 
-                await asyncio.sleep(2)
-                await downloading_msg.delete()
-                await uploading_msg.delete()
+            await client.send_video(callback_query.message.chat.id, video=open(video_filename, 'rb'), caption=f"🎬 **{title}**")
 
-                await callback_query.message.reply_text("\n\SUCCESSFULLY UPLOADED! ✅")
-            else:
-                logging.error("No video streams found.")
-                await callback_query.message.reply_text("Error: No downloadable video found.")
+            await downloading_msg.delete()
+            await uploading_msg.delete()
+
+            await callback_query.message.reply_text("✅ **Successfully Uploaded!**")
+
     except Exception as e:
         logging.exception("Error processing YouTube link: %s", e)
-        await callback_query.message.reply_text("Error: Failed to process the YouTube link. Please try again later.")
+        await callback_query.message.reply_text("❌ **Error: Failed to process the YouTube link. Please try again later.**")
