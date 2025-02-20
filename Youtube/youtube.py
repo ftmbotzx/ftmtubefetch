@@ -58,10 +58,8 @@ async def handle_download_button(client, callback_query):
     'low': 'best[height<=360]',
     'audio_64kbps': 'bestaudio[abr<=64]/bestaudio'
 }.get(quality, 'best')
-
     try:
         downloading_msg = await callback_query.message.reply_text("Downloading video...")
-
         ydl_opts = {
             'format': quality_format,
             'outtmpl': 'downloaded_video_%(id)s.%(ext)s',
