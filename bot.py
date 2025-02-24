@@ -17,3 +17,7 @@ app = Client(
 # Start the bot
 print("🎊 🎊 I AM ALIVE 🎊 & Powered by Fᴛᴍ Dᴇᴠᴇʟᴏᴘᴇʀᴢ 🚀")
 app.run()
+import os
+PORT = int(os.environ.get("PORT", 8080))
+
+app.run(port=PORT)
